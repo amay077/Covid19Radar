@@ -1,20 +1,7 @@
 ﻿using Covid19Radar.Common;
 using Covid19Radar.Model;
-using Microsoft.AppCenter.Crashes;
-using Newtonsoft.Json;
-using Plugin.LocalNotification;
-using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using Xamarin.Essentials;
-using Xamarin.ExposureNotifications;
 using Xamarin.Forms;
 
 namespace Covid19Radar.Services
@@ -24,11 +11,11 @@ namespace Covid19Radar.Services
     /// </summary>
     public class UserDataService
     {
-        private readonly HttpDataService httpDataService;
+        private readonly IHttpDataService httpDataService;
         private UserDataModel current;
         public event EventHandler<UserDataModel> UserDataChanged;
 
-        public UserDataService(HttpDataService httpDataService)
+        public UserDataService(IHttpDataService httpDataService)
         {
             this.httpDataService = httpDataService;
             current = Get();
@@ -44,6 +31,11 @@ namespace Covid19Radar.Services
                 return null;
             }
             userData.StartDateTime = DateTime.UtcNow;
+            userData.IsExposureNotificationEnabled = false;
+            userData.IsNotificationEnabled = false;
+            userData.IsOptined = false;
+            userData.IsPolicyAccepted = false;
+            userData.IsPositived = false;
             await SetAsync(userData);
             return userData;
         }

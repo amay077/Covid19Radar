@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Prism;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -49,17 +49,16 @@ namespace Covid19Radar
         {
             InitializeComponent();
 
-#if DEBUG
+#if USE_MOCK
             // For debug mode, set the mock api provider to interact
             // with some fake data
-            //Xamarin.ExposureNotifications.ExposureNotification.OverrideNativeImplementation(new Services.TestNativeImplementation());
+            Xamarin.ExposureNotifications.ExposureNotification.OverrideNativeImplementation(new Services.TestNativeImplementation());
 #endif
             Xamarin.ExposureNotifications.ExposureNotification.Init();
 
             // Local Notification tap event listener
             NotificationCenter.Current.NotificationTapped += OnNotificationTapped;
             LogUnobservedTaskExceptions();
-            _ = InitializeBackgroundTasks();
 
             INavigationResult result;
             // Check user data and skip tutorial
@@ -93,6 +92,7 @@ namespace Covid19Radar
                 };
                 System.Diagnostics.Debugger.Break();
             }
+
         }
 
         protected void OnNotificationTapped(NotificationTappedEventArgs e)
@@ -142,28 +142,31 @@ namespace Covid19Radar
             // Services
             containerRegistry.RegisterSingleton<UserDataService>();
             containerRegistry.RegisterSingleton<ExposureNotificationService>();
-            containerRegistry.RegisterSingleton<HttpDataService>();
+#if USE_MOCK
+            containerRegistry.RegisterSingleton<IHttpDataService, HttpDataServiceMock>();
+#else            
+            containerRegistry.RegisterSingleton<IHttpDataService, HttpDataService>();
+#endif
         }
 
         protected override void OnStart()
         {
-            
         }
 
         protected override void OnResume()
         {
         }
 
-        async Task InitializeBackgroundTasks()
+        /*
+         public async Task InitializeBackgroundTasks()
         {
             if (await Xamarin.ExposureNotifications.ExposureNotification.IsEnabledAsync())
                 await Xamarin.ExposureNotifications.ExposureNotification.ScheduleFetchAsync();
         }
-
+        */
         protected override void OnSleep()
         {
         }
-
 
         private void LogUnobservedTaskExceptions()
         {

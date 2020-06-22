@@ -1,15 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Windows.Input;
-using Acr.UserDialogs;
-using Covid19Radar.Model;
-using Covid19Radar.Renderers;
+﻿using Covid19Radar.Model;
 using Covid19Radar.Resources;
 using Covid19Radar.Services;
 using Covid19Radar.Views;
-using DryIoc;
-using Prism.Ioc;
 using Prism.Navigation;
-using Prism.Services;
 using Xamarin.Forms;
 
 namespace Covid19Radar.ViewModels
@@ -34,34 +27,14 @@ namespace Covid19Radar.ViewModels
 
             this.userDataService = userDataService;
             userData = this.userDataService.Get();
+
         }
 
-        /*
         public Command OnClickAgree => new Command(async () =>
         {
-
-            UserDialogs.Instance.ShowLoading(Resources.AppResources.LoadingTextRegistering);
-            if (!userDataService.IsExistUserData)
-            {
-                userData = await userDataService.RegisterUserAsync();
-                if (userData == null)
-                {
-                    UserDialogs.Instance.HideLoading();
-                    await UserDialogs.Instance.AlertAsync(Resources.AppResources.DialogNetworkConnectionError, "通信に失敗しました。電波状況の良い場所でもう一度お試しください。", Resources.AppResources.ButtonOk);
-                    return;
-                }
-            }
-            userData.IsOptined = true;
+            userData.IsPolicyAccepted = true;
             await userDataService.SetAsync(userData);
-            UserDialogs.Instance.HideLoading();
-            await NavigationService.NavigateAsync(nameof(DescriptionPage1));
+            await NavigationService.NavigateAsync(nameof(TutorialPage4));
         });
-        public Command OnClickNotAgree => new Command(() =>
-        {
-            // Application close
-            Xamarin.Forms.DependencyService.Get<ICloseApplication>().closeApplication();
-
-        });
-        */
     }
 }

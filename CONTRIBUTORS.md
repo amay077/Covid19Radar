@@ -5,9 +5,6 @@
 - Yasuaki Matsuda
 - Takashi Takebayashi
 - Akihiko Kodama
-- Mizuki Kubota
-- Moe Sakuraba
-- Yuki Kawanishi
 
 # COVID-19Radar Contributors
 - Kazumi Hirose (Organizer)
@@ -61,8 +58,17 @@
 - Mohamed BOUZIDI(github actions)
 - Yutaro Iino (Documentation)
 - Kohei Ikeda(Documentation)
+- Daniel Kastl (German Translation)
 - Iyotetsuya (Traditional Chinese Translation)
+- Anharu (Xamarin)
 - Soichi Ikebe (Documentation)
+- Elisa Sakamoto (Italian Translation)
+- Leo Ando (Client Android)
+- Prastyo ([Indonesian Translation](https://github.com/Covid-19Radar/Covid19Radar/commits?author=jiprastyo))
+- Kosuke Ogawa (Client iOS)
+- Mizuki Kubota
+- Moe Sakuraba
+- Yuki Kawanishi
 
 # Beta Testers
 - Nagahata Kenji
